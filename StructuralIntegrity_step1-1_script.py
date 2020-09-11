@@ -114,6 +114,11 @@ for elem in struct_elems2:
     except:
         pass
 
+# get sectionbox
+secbox = Fec(doc).OfCategory(Bic.OST_SectionBox).WhereElementIsNotElementType().ToElementIds()
+for box in secbox:
+    element_ids.append(box)
+
 # create a collection from all element ids
 col1 = List[ElementId](element_ids)
 

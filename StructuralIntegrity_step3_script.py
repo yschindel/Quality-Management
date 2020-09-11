@@ -23,7 +23,8 @@ import re
 __doc__ = 'Visualizes the level offset properties of Walls, Floors,' \
           ' Structural Columns and Structural Framing.' \
           ' Every unique offset has a distict color.' \
-          ' Walls with top or bottom attachement are colored transparent orange.'
+          ' Walls with top or bottom attachement are colored transparent orange.' \
+          ' Structual Framing with start- or end-level offset are colored transparent orange.'
 
 
 class StructuralElement:
@@ -271,6 +272,11 @@ offset_color = dict(zip(unique_offsets, colors_rgb))
 
 ogs = OverrideGraphicSettings().SetSurfaceForegroundPatternId(solid_fill)
 ogs.SetCutForegroundPatternId(solid_fill)
+
+# get sectionbox
+secbox = Fec(doc).OfCategory(Bic.OST_SectionBox).WhereElementIsNotElementType().ToElementIds()
+for box in secbox:
+    element_ids.append(box)
 
 # entering a transaction to modify the revit model database
 # start transaction

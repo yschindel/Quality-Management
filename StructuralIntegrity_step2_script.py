@@ -211,6 +211,11 @@ elem_wrngs = []
 # process elements
 GetElemProps(struct_elems)
 
+# get sectionbox
+secbox = Fec(doc).OfCategory(Bic.OST_SectionBox).WhereElementIsNotElementType().ToElementIds()
+for box in secbox:
+    element_ids.append(box)
+
 # entering a transaction to modify the revit model database
 # start transaction
 tx = Transaction(doc, "check structural element levels")
