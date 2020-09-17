@@ -96,9 +96,13 @@ def process_storage_type(param_check):
             param = param_check.AsString()
         elif param_check.StorageType == DB.StorageType.ElementId:
             param_id = param_check.AsElementId()
-            param_name = Document.GetElement(doc, param_id).Name
-            level_loc = regex_lvl.findall(param_name)
-            param = level_loc[0]
+            param_element = Document.GetElement(doc, param_id)
+            if param_element.Category.Name == "Ebenen":
+                param_name = param_element.Name
+                level_loc = regex_lvl.findall(param_name)
+                param = level_loc[0]
+            else:
+                param = param_id
         else:
             print("Cannot read Parameter, sorry :(")
         return param
